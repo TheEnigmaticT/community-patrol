@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" fill="none">
+  <path d="M100 10 L185 50 L185 130 C185 180 145 220 100 235 C55 220 15 180 15 130 L15 50 Z" fill="#f8c26f" stroke="#0f0e11" stroke-width="6"/>
+  <path d="M100 35 L160 65 L160 130 C160 168 132 198 100 210 C68 198 40 168 40 130 L40 65 Z" fill="#0f0e11"/>
+  <text x="100" y="148" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="64" font-weight="900" fill="#f8c26f" letter-spacing="2">CP</text>
+</svg>

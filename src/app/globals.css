@@ -1,26 +1,179 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================
+   COMMUNITY PATROL - Design System
+   ============================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors */
+  --color-near-black: #0f0e11;
+  --color-off-white: #f7f6f3;
+  --color-gold-light: #fcd681;
+  --color-gold: #f8c26f;
+  --color-gold-dark: #efa357;
+  --color-gold-pale: #fad78a;
+  --color-gold-cream: #fcf9cf;
+
+  /* Fonts */
+  --font-primary: var(--font-raleway), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-archivo-black), Impact, "Arial Black", sans-serif;
+  --font-secondary: var(--font-lora), Georgia, "Times New Roman", serif;
+
+  /* Custom type scale */
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-large: 1.25rem;
+  --text-large--line-height: 1.5;
+  --text-heading: 2rem;
+  --text-heading--line-height: 1.15;
+  --text-display: clamp(3rem, 8vw, 6rem);
+  --text-display--line-height: 0.95;
+  --text-massive: clamp(5rem, 15vw, 12rem);
+  --text-massive--line-height: 0.85;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================
+   Base Styles
+   ============================================ */
+
+:root {
+  --bg-current: #f7f6f3;
+  --section-transition-duration: 0.8s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-primary);
+  color: var(--color-near-black);
+  background-color: var(--bg-current);
+  transition: background-color var(--section-transition-duration) ease;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   Scroll-linked Background Transitions
+   ============================================ */
+
+body.bg-white-zone {
+  background-color: #f7f6f3;
+  color: var(--color-near-black);
+}
+
+body.bg-dark-zone {
+  background-color: var(--color-near-black);
+  color: #f7f6f3;
+}
+
+body.bg-gold-zone {
+  background-color: var(--color-gold-cream);
+  color: var(--color-near-black);
+}
+
+/* ============================================
+   Selection
+   ============================================ */
+
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-near-black);
+}
+
+/* ============================================
+   Scroll-triggered Animations
+   ============================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ============================================
+   Horizontal Scroll Section
+   ============================================ */
+
+.horizontal-scroll-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+}
+
+.horizontal-scroll-container > * {
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  body {
+    transition: none;
+  }
+
+  .horizontal-scroll-container {
+    flex-wrap: wrap;
+  }
+}
+
+/* ============================================
+   Custom Utilities
+   ============================================ */
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Gold underline accent */
+.gold-underline {
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-gold), var(--color-gold));
+  background-size: 100% 3px;
+  background-position: 0 92%;
+  background-repeat: no-repeat;
+}
+
+/* Shield logo subtle animation */
+@keyframes shield-float {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-8px) rotate(-6deg); }
+}
+
+.shield-float {
+  animation: shield-float 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shield-float {
+    animation: none;
+  }
 }
