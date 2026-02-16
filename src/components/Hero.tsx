@@ -45,15 +45,16 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* Shield watermark - subtle */}
-      <div className="absolute bottom-24 right-8 md:right-24 opacity-5">
+      {/* Logo watermark - subtle */}
+      <div className="absolute bottom-24 right-8 md:right-24 opacity-10">
         <Image
-          src="/shield.svg"
+          src="/hero-logo.png"
           alt=""
-          width={300}
-          height={360}
+          width={400}
+          height={400}
           aria-hidden="true"
           priority
+          className="object-contain"
         />
       </div>
     </section>
