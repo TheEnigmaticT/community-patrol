@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Patrol | Real-Time Security for Neighborhoods</title>
+    <meta name="description" content="Security that actually shows up. Real-time dispatch, incident documentation, and community transparency for neighborhood patrols.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Raleway:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-dark: #0f0e11;
+            --color-white: #ffffff;
+            --color-gold: #f8c26f;
+            --color-gold-dark: #e5a84c;
+            --font-headline: 'Raleway', sans-serif;
+            --font-body: 'Lora', serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-dark);
+            color: var(--color-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headline);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, var(--color-dark) 0%, transparent 100%);
+        }
+
+        .logo {
+            font-family: var(--font-headline);
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--color-white);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        .logo span {
+            color: var(--color-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-family: var(--font-headline);
+            font-weight: 400;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--color-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            background: var(--color-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(248, 194, 111, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(80px, 14vw, 180px);
+            font-weight: 800;
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            margin-bottom: 1rem;
+        }
+
+        .hero .accent-line {
+            display: block;
+            width: 120px;
+            height: 4px;
+            background: var(--color-gold);
+            margin: 2rem 0;
+        }
+
+        .hero .subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 400;
+            max-width: 500px;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--color-gold);
+            color: var(--color-dark);
+            font-family: var(--font-headline);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 1.25rem 3rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--color-white);
+            transform: translateY(-2px);
+        }
+
+        /* Horizontal Scroll Section */
+        .how-it-works {
+            background: var(--color-dark);
+            padding: 8rem 0;
+            overflow: hidden;
+        }
+
+        .section-label {
+            font-family: var(--font-headline);
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--color-gold);
+            margin-bottom: 2rem;
+            padding-left: 10%;
+        }
+
+        .horizontal-scroll-container {
+            display: flex;
+            gap: 4rem;
+            padding: 0 10%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .horizontal-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .step-card {
+            flex: 0 0 auto;
+            width: 70vw;
+            max-width: 800px;
+            scroll-snap-align: start;
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            font-family: var(--font-headline);
+            font-size: clamp(150px, 20vw, 300px);
+            font-weight: 800;
+            color: var(--color-gold);
+            line-height: 0.8;
+            opacity: 0.3;
+        }
+
+        .step-content h3 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+            color: var(--color-white);
+        }
+
+        .step-content p {
+            font-size: 1.25rem;
+            opacity: 0.8;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        /* Problem Statement */
+        .problem {
+            padding: 10rem 10%;
+            background: linear-gradient(135deg, var(--color-dark) 0%, #1a1a1a 100%);
+        }
+
+        .problem h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+
+        .problem-statement {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            max-width: 700px;
+            line-height: 1.8;
+        }
+
+        .problem-statement strong {
+            color: var(--color-gold);
+            font-weight: 500;
+        }
+
+        /* Features - Inline Text Style */
+        .features {
+            padding: 10rem 10%;
+            background: var(--color-dark);
+        }
+
+        .feature-block {
+            margin-bottom: 8rem;
+            display: flex;
+            gap: 4rem;
+            align-items: baseline;
+        }
+
+        .feature-label {
+            font-family: var(--font-headline);
+            font-size: clamp(80px, 12vw, 150px);
+            font-weight: 800;
+            color: var(--color-gold);
+            line-height: 0.9;
+            flex-shrink: 0;
+            opacity: 0.4;
+        }
+
+        .feature-text h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .feature-text p {
+            font-size: 1.125rem;
+            opacity: 0.8;
+            max-width: 500px;
+        }
+
+        /* Social Proof */
+        .social-proof {
+            padding: 8rem 10%;
+            background: #1a1a1a;
+        }
+
+        .stat-row {
+            display: flex;
+            gap: 6rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-family: var(--font-headline);
+            font-size: clamp(4rem, 8vw, 6rem);
+            font-weight: 800;
+            color: var(--color-gold);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 10rem 10%;
+            text-align: center;
+            background: var(--color-dark);
+        }
+
+        .cta-section h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 10%;
+            border-top: 1px solid rgba(248, 194, 111, 0.2);
+            background: var(--color-dark);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-headline);
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--color-white);
+            text-decoration: none;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--color-gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 0 5%;
+            }
+
+            .hero h1 {
+                font-size: clamp(50px, 18vw, 100px);
+            }
+
+            .step-card {
+                width: 85vw;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .feature-block {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stat-row {
+                gap: 3rem;
+            }
+
+            .horizontal-scroll-container {
+                padding: 0 5%;
+            }
+
+            .problem, .features, .how-it-works, .social-proof, .cta-section {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">COMMUNITY <span>PATROL</span></a>
+        <ul class="nav-links">
+            <li><a href="#how">How it works</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                COMMUNITY<br>
+                PATROL
+            </h1>
+            <span class="accent-line"></span>
+            <p class="subtitle">
+                Real-time security for neighborhoods that actually works. 
+                Your officers have phones. Use them.
+            </p>
+            <a href="#contact" class="cta-button">Start Your Patrol</a>
+        </div>
+    </section>
+
+    <!-- Problem Statement -->
+    <section class="problem">
+        <h2>Paper logs don't stop crime.</h2>
+        <p class="problem-statement">
+            Most neighborhood security is invisible. Patrols happen on paper. 
+            Incidents get forgotten. Communities don't know if anyone is actually 
+            watching. <strong>Real-time dispatch changes everything.</strong>
+        </p>
+    </section>
+
+    <!-- How It Works - Horizontal Scroll -->
+    <section class="how-it-works" id="how">
+        <div class="section-label">How It Works</div>
+        <div class="horizontal-scroll-container">
+            <div class="step-card">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <h3>Real-Time Dispatch</h3>
+                    <p>
+                        Officers check in from the field. Dispatch tracks locations 
+                        live. Response times drop by 60%. No more radio silence.
+                    </p>
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <h3>Incident Documentation</h3>
+                    <p>
+                        Photos, reports, evidence—all in one place. Court-ready 
+                        documentation without the paperwork backlog.
+                    </p>
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <h3>Community Transparency</h3>
+                    <p>
+                        Residents see patrol coverage and know security is active 
+                        in their neighborhood. Trust through visibility.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features - Oversized Type Layout -->
+    <section class="features" id="features">
+        <div class="feature-block">
+            <div class="feature-label">REAL<br>TIME</div>
+            <div class="feature-text">
+                <h3>Live Officer Tracking</h3>
+                <p>
+                    Know where every officer is. Dispatch the closest responder 
+                    to any incident. No more guessing, no more delays.
+                </p>
+            </div>
+        </div>
+        
+        <div class="feature-block">
+            <div class="feature-label">EVID<br>ENCE</div>
+            <div class="feature-text">
+                <h3>Photo & Report Capture</h3>
+                <p>
+                    Officers document incidents instantly from the field. 
+                    Timestamped, geotagged, and court-ready.
+                </p>
+            </div>
+        </div>
+        
+        <div class="feature-block">
+            <div class="feature-label">TRUST</div>
+            <div class="feature-text">
+                <h3>Community Dashboard</h3>
+                <p>
+                    Residents can see patrol activity in their area. Report concerns. 
+                    Know that someone is watching.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="stat-row">
+            <div class="stat">
+                <div class="stat-number">60%</div>
+                <div class="stat-label">Faster Response</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Live Tracking</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Paper Logs</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <h2>Security that shows up.</h2>
+        <p>
+            Stop managing patrols on paper. Start knowing where your officers are, 
+            what they're doing, and how your community is protected.
+        </p>
+        <a href="mailto:hello@communitypatrol.com" class="cta-button">Get Started</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">COMMUNITY <span style="color: var(--color-gold);">PATROL</span></div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="mailto:hello@communitypatrol.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
