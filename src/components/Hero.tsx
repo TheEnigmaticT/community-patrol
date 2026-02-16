@@ -6,55 +6,54 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24 overflow-hidden bg-near-black text-off-white"
     >
-      {/* Shield logo, asymmetric placement */}
-      <div className="absolute top-12 right-8 md:right-16 lg:right-24 opacity-15 shield-float pointer-events-none">
-        <Image
-          src="/shield.svg"
-          alt=""
-          width={180}
-          height={216}
-          aria-hidden="true"
-          priority
-        />
-      </div>
+      {/* Gold accent glow */}
+      <div className="absolute top-20 right-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-4xl">
+      <div className="max-w-5xl relative z-10">
+        {/* Oversized typography as structure */}
         <h1
-          className="font-[family-name:var(--font-display)] uppercase tracking-tight leading-[0.95]"
-          style={{ fontSize: "clamp(3rem, 8vw, 6rem)" }}
+          className="font-[family-name:var(--font-display)] uppercase tracking-tighter leading-[0.85]"
+          style={{ 
+            fontSize: "clamp(4rem, 14vw, 10rem)",
+            letterSpacing: "-0.04em"
+          }}
         >
-          Your neighborhood
+          COMMUNITY
           <br />
-          shouldn&apos;t scare you
+          PATROL
         </h1>
 
+        {/* Gold accent line */}
+        <div className="w-32 h-1 bg-gold my-8" />
+
+        {/* Direct, non-corporate copy */}
         <p
-          className="mt-8 max-w-lg font-[family-name:var(--font-primary)]"
-          style={{ fontSize: "1.25rem", lineHeight: 1.5 }}
+          className="max-w-xl font-[family-name:var(--font-secondary)] italic"
+          style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", lineHeight: 1.5 }}
         >
-          Community Patrol puts trained officers on your streets before trouble
-          starts. Toronto&apos;s first proactive security service, built for
-          neighborhoods that refuse to wait.
+          Real-time security for neighborhoods that actually works.
+          Your officers have phones. Use them.
         </p>
 
         <a
           href="#waitlist"
-          className="inline-block mt-10 px-8 py-4 bg-near-black text-off-white font-[family-name:var(--font-primary)] font-semibold tracking-wide text-lg hover:bg-gold hover:text-near-black transition-colors duration-300"
+          className="inline-block mt-10 px-10 py-4 bg-gold text-near-black font-[family-name:var(--font-primary)] font-bold tracking-wide text-lg hover:bg-off-white transition-all duration-300"
         >
-          Join the Waitlist
+          Start Your Patrol
         </a>
       </div>
 
-      {/* Small shield in bottom-left for asymmetry */}
-      <div className="absolute bottom-16 left-8 md:left-16 opacity-8">
+      {/* Shield watermark - subtle */}
+      <div className="absolute bottom-24 right-8 md:right-24 opacity-5">
         <Image
           src="/shield.svg"
           alt=""
-          width={48}
-          height={58}
+          width={300}
+          height={360}
           aria-hidden="true"
+          priority
         />
       </div>
     </section>
